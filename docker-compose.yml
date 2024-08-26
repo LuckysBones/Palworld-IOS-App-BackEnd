@@ -1,0 +1,52 @@
+---
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./Pal-Django/Dockerfile
+    container_name: pal-django
+    depends_on:
+      - redis
+      - palserver
+    networks:
+      - pal-net
+    volumes:
+      - .:/PalWorldDocker
+    command: daphne -b 0.0.0.0 -p 8001 PalLensBackEnd.asgi:application
+    ports:
+      - 8001:8001
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - 6379:6379
+    networks:
+      - pal-net
+
+
+  palserver:
+    build:
+      context: .
+      dockerfile: ./Pal-Server/Dockerfile
+    container_name: palserver
+    networks:
+      - pal-net
+    ports:
+      - 8211:8211/tcp
+      - 8211:8211/udp
+      - 27015:27015/tcp
+      - 27015:27015/udp
+      - 8212:8212/tcp
+      - 8212:8212/udp
+
+
+
+
+networks:
+  pal-net:
+    driver: bridge

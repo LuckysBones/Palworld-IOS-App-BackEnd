@@ -1,0 +1,9 @@
+daphne
+django
+channels
+requests==2.25.1
+django_extensions
+django-sslserver
+channels_redis
+websockets
+django-redis
