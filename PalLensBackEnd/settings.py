@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,17 +26,20 @@ SECRET_KEY = 'django-insecure-d$pnw%2jcrc&a83_xpid+kc-xl-k50oje!hw87%xb-z)o5fuxn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','[::1]']
+ALLOWED_HOSTS = ['*','0.0.0.0','localhost', '127.0.0.1','[::1]']
 
 
 # Application definition
 # settings.py
 INSTALLED_APPS = [
+    #
+    'rest_framework_simplejwt',
     'django_extensions',
     'sslserver',
     'daphne',
     'channels',
     'PalSockets',
+    #
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,6 +77,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
 REDIS_PORT = int(os.getenv('REDIS_PORT', 6379))
 

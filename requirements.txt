@@ -7,3 +7,7 @@ django-sslserver
 channels_redis
 websockets
 django-redis
+djangorestframework
+markdown
+django-filter
+djangorestframework-simplejwt
