@@ -27,7 +27,7 @@ class PlayersConsumer(WebsocketConsumer):
 class MetricConsumer(WebsocketConsumer):
 
     def connect(self):
-        #self.user = self.scope["user"]
+        self.user = self.scope["user"]
         self.room_name = "Metric"
         self.room_group_name = "Group_Metric"
         async_to_sync(self.channel_layer.group_send)(

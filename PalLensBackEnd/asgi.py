@@ -25,7 +25,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PalLensBackEnd.settings')
 pallen_asgi_app = get_asgi_application()
 
 
-
 application = ProtocolTypeRouter(
     {
         'http': pallen_asgi_app,

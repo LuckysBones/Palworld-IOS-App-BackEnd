@@ -12,9 +12,12 @@ services:
       - pal-net
     volumes:
       - .:/PalWorldDocker
-    command: daphne -b 0.0.0.0 -p 8001 PalLensBackEnd.asgi:application
+    #command: gunicorn --bind 0.0.0.0:8000 PalLensBackEnd.wsgi:application
+    command: /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
     ports:
       - 8001:8001
+      - 8000:8000/udp
+      - 8000:8000/tcp
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379

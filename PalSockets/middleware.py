@@ -22,4 +22,5 @@ class QueryAuthMiddleware:
         else:
             scope['user'] = SimpleAnonymousUser()
 
+        print(scope["user"])
         return await self.app(scope, receive, send)

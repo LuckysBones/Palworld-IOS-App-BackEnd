@@ -14,5 +14,13 @@ EXPOSE 27015/tcp
 EXPOSE 27015/udp
 EXPOSE 8212/tcp
 EXPOSE 8212/udp
+# Inside Pal-Django/Dockerfile
 
-CMD ["daphne", "-b", "0.0.0.0", "-p", "8001", "PalLensBackEnd.asgi:application"]
+# Install supervisor
+RUN apt-get update && apt-get install -y supervisor
+
+# Add supervisor configuration file
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+CMD ["tail", "-f", "/dev/null"]
+#CMD ["daphne", "-b", "0.0.0.0", "-p", "8001", "PalLensBackEnd.asgi:application"]

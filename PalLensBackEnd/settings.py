@@ -89,7 +89,8 @@ CACHES = {
     }
 }
 
-# WSGI_APPLICATION = 'PalLensBackEnd.wsgi.application'
+WSGI_APPLICATION = 'PalLensBackEnd.wsgi.application'
+
 ASGI_APPLICATION = 'PalLensBackEnd.asgi.application'
 # Configure the Channels layer to use Redis as the backend
 CHANNEL_LAYERS = {
@@ -148,12 +149,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True

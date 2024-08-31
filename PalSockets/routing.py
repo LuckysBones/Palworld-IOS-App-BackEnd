@@ -1,5 +1,6 @@
 from django.urls import path
 from . import consumers 
+#from django.contrib import admin
 
 ws_patterns = [
     path('ws/players/', consumers.PlayersConsumer.as_asgi()),
@@ -8,5 +9,5 @@ ws_patterns = [
     path('ws/message/', consumers.MessageConsumer.as_asgi()),
     path('ws/save/', consumers.SaveConsumer.as_asgi()),
     path('ws/shutdown/', consumers.ShutdownConsumer.as_asgi()),
-    
+   # path('admin/', admin.site.urls),
 ]
