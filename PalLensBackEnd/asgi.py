@@ -27,7 +27,7 @@ pallen_asgi_app = get_asgi_application()
 
 application = ProtocolTypeRouter(
     {
-        'http': pallen_asgi_app,
+        #'http': pallen_asgi_app,
         'websocket': QueryAuthMiddleware(
             URLRouter(
                 ws_patterns
