@@ -1,1 +1,8 @@
 PalEnv
+supervisord.log
+supervisord.pid
+PalServer
+static
+/PalSockets/__pycache__/
+/PalLensBackEnd/__pycache__/
+/__pycache__/

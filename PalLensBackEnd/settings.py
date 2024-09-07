@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d$pnw%2jcrc&a83_xpid+kc-xl-k50oje!hw87%xb-z)o5fuxn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*','0.0.0.0','localhost', '127.0.0.1','[::1]']
 
@@ -149,8 +149,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = '/home/luffy/Palworld-IOS-App-BackEnd/static/'
 
 
 # Default primary key field type

@@ -73,3 +73,4 @@ RUN cp /root/PalWorldSettings.ini /root/Steam/steamapps/common/PalServer/Pal/Sav
 USER paluser
 WORKDIR /root/Steam/steamapps/common/PalServer
 CMD ["./PalServer.sh"]
+#CMD ["tail", "-f", "/dev/null"]
