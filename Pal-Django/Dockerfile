@@ -7,8 +7,6 @@ COPY requirements.txt /home/PalLens
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
-EXPOSE 8211/tcp
-EXPOSE 8211/udp
 EXPOSE 27015/tcp
 EXPOSE 27015/udp
 EXPOSE 8212/tcp

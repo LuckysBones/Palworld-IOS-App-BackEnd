@@ -6,3 +6,6 @@ static
 /PalSockets/__pycache__/
 /PalLensBackEnd/__pycache__/
 /__pycache__/
+palserver/PalServer
+palserver/steamapps
+palserver/Steam

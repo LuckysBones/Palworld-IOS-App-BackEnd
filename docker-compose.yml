@@ -1,5 +1,7 @@
 ---
 services:
+
+
   django:
     build:
       context: .
@@ -40,10 +42,11 @@ services:
     container_name: palserver
     networks:
       - pal-net
-    #volumes:
-    #  - ./PalServer:./root/Steam/steamapps/common/PalServer
+    volumes:
+     - ./palserver:/Pal
+    #command: ./run.sh
     ports:
-      - 8211:8211/tcp
+      - 8222:8222/tcp
       - 8211:8211/udp
       - 27015:27015/tcp
       - 27015:27015/udp

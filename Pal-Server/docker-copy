@@ -1,0 +1,76 @@
+FROM ubuntu:22.04
+
+# Set working directory
+WORKDIR /Pal
+
+RUN dpkg --add-architecture i386 \
+        && apt-get update -y && apt install wget lib32gcc-s1 lib32stdc++6 \
+        curl libstdc++6:i386 lib32z1 -y
+
+
+RUN echo steam steam/question select "I AGREE" |  debconf-set-selections
+RUN echo steam steam/license note '' | debconf-set-selections
+RUN mkdir steamcmd && mkdir Palworld && apt-get install -y --no-install-recommends steamcmd
+
+
+RUN yes | apt install neovim
+
+RUN yes | apt install nano
+
+RUN ln -s /usr/games/steamcmd /usr/bin/steamcmdcd ..
+
+# Download and update game
+RUN steamcmd +login anonymous +app_update 2394010 validate +quit
+
+# Create directory for steamclient.so and update
+#RUN mkdir -p /home/paluser/.steam/sdk64/
+RUN mkdir -p /root/.steam/sdk64/
+RUN steamcmd +login anonymous +app_update 1007 +quit
+
+RUN mkdir -p /root/Steam/steamapps/common/PalServer/Pal/Saved/Config/LinuxServer/
+
+
+#COPY PalWorldSettings.ini /root
+COPY ./Pal-Server/PalWorldSettings.ini /root
+#COPY mv-settings.sh /root
+
+#RUN mv /root/PalWorldSettings.ini /root/Steam/steamapps/common/PalServer/Pal/Saved/Config/LinuxServer/
+
+# Copy steamclient.so and libsteam_api.so to the appropriate locations
+RUN cp /root/Steam/steamapps/common/Steamworks\ SDK\ Redist/linux64/steamclient.so /root/.steam/sdk64/
+
+
+# Create a non-root user and group
+RUN groupadd -r palgroup && useradd -r -g palgroup paluser
+
+# Change ownership of the necessary directories to the non-root user
+#RUN chown -R paluser:palgroup /root/Steam/steamapps/common/PalServer/Pal/Saved/Config/LinuxServer
+RUN chown -R paluser:palgroup /root/Steam/steamapps/common/PalServer
+RUN chown -R paluser:palgroup /root/.steam
+RUN chown -R paluser:palgroup /root
+
+
+# Set the LD_LIBRARY_PATH environment variable to include the directory containing libsteam_api.so
+#ENV LD_LIBRARY_PATH=/root/.steam/sdk64:$LD_LIBRARY_PATH
+
+# Switch to the non-root user
+EXPOSE 8222/tcp
+EXPOSE 8222/udp
+EXPOSE 27015/tcp
+EXPOSE 27015/udp
+EXPOSE 8212/tcp
+EXPOSE 8212/udp
+#WORKDIR /Pal
+#RUN chmod +x /root/mv-settings.sh
+#RUN /root/mv-settings.sh
+#RUN ["cp", "/root/Steam/steamapps/common/PalServer/DefaultPalWorldSettings.ini", "/root/Steam/steamapps/common/PalServer/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini"]
+
+#RUN cp /root/DefaultPalWorldSettings.ini /Pal/Saved/Config/LinuxServer/
+
+RUN cp /root/PalWorldSettings.ini /root/Steam/steamapps/common/PalServer/Pal/Saved/Config/LinuxServer/
+#RUN cp /root/PalWorldSettings.ini /root/Steam/steamapps/common/PalServer/
+
+USER paluser
+WORKDIR /root/Steam/steamapps/common/PalServer
+CMD ["./PalServer.sh"]
+#CMD ["tail", "-f", "/dev/null"]
